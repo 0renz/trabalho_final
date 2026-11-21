@@ -1,0 +1,29 @@
+# Variáveis de ambiente, segredos e credenciais (nunca commitar!)
+.env
+.env.*
+*.pem
+*.key
+*.secret
+
+# Bancos de dados locais e arquivos temporários de execução
+*.sqlite
+*.sqlite3
+*.db
+
+# Dependências e ambientes virtuais
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Builds e caches
+dist/
+build/
+.next/
+.cache/
+*.log
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
