@@ -1,6 +1,7 @@
 # Variáveis de ambiente, segredos e credenciais (nunca commitar!)
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 *.secret
@@ -27,3 +28,17 @@ build/
 # Sistema operacional e editores
 .DS_Store
 Thumbs.db
+
+# Deploy e testes
+.vercel/
+coverage/
+playwright-report/
+test-results/
+
+# Arquivos auxiliares do SQLite (WAL/SHM)
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm

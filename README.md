@@ -10,8 +10,9 @@ Repositório do grupo para o trabalho final da disciplina **Programação Agênt
 ## Estrutura do Repositório
 
 - `proposta.md` — Pergunta, hipóteses individuais/do grupo, pedido do cenário, recorte do MVP e forma de observação (registrada em commit anterior a qualquer código).
-- `registro/` — Diário contínuo do grupo (`diario_grupo.md`) e registros individuais (`registro_lorenzo.md` e `registro_nicolas.md`), com previsões anotadas **antes** de cada etapa.
-- `app/` — Aplicação da semana acadêmica (a ser construída a partir da Semana 2).
+- `registros/` — Diário contínuo do grupo (`diario_grupo.md`) e registros individuais (`registro_lorenzo.md` e `registro_nicolas.md`), com previsões anotadas **antes** de cada etapa.
+- `app/` — Aplicação web da semana acadêmica (Next.js + TypeScript; instruções em `app/README.md`).
+- `docs/` — Enunciado e cenários do trabalho em PDF.
 - `artigos/` — Artigos individuais finais em PDF (modelo SBC, até 6 páginas).
 - `passo_a_passo_cenario_8.md` — Guia de referência para condução do Cenário 8.
 

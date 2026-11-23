@@ -102,3 +102,15 @@ RF13	Pesquisar participantes	Should
 RF14	Corrigir nome de participante	Out
 RF15	Excluir ou arquivar evento	Out
 ```
+
+---
+
+## Semana 2 - Implementação da estrutura do projeto 
+
+```markdown
+
+```
+
+---
+
+## Semana 1 — Setup inicial

@@ -54,9 +54,9 @@ Vamos construir uma aplicação web simples (stack a definir: framework full-sta
   - O que o agente gerou e foi aceito, o que precisou refazer e o que não foi delegado;
   - Horas trabalhadas e gasto com modelos.
 - **Onde registrar:**
-  - [registro/diario_grupo.md](registro/diario_grupo.md) (decisões de arquitetura, cortes de escopo, teto e gastos de API, checkpoints);
-  - [registro/registro_lorenzo.md](registro/registro_lorenzo.md) (observações individuais de Lorenzo);
-  - [registro/registro_nicolas.md](registro/registro_nicolas.md) (observações individuais de Nícolas).
+  - [registros/diario_grupo.md](registros/diario_grupo.md) (decisões de arquitetura, cortes de escopo, teto e gastos de API, checkpoints);
+  - [registros/registro_lorenzo.md](registros/registro_lorenzo.md) (observações individuais de Lorenzo);
+  - [registros/registro_nicolas.md](registros/registro_nicolas.md) (observações individuais de Nícolas).
 - **Teto de gasto combinado:** `[definir valor máximo antes de começar]`
 - **Harness / modelos previstos:** `[ex.: OpenCode + modelo X]`
 
