@@ -214,9 +214,21 @@ Cobertura adicionada: configuração do cookie, Secure em produção, segredo au
  | `npm run lint` | Passou |
  | `npm run build` | Passou; rotas `/login`, `/api/auth/login` e `/api/auth/logout` geradas como dinâmicas |
 
-## Etapa [5] — [Implementação do CRUD de eventos]
+## Etapa [5] — [Login e logout administrativos]
 
 [24/11/2026 11:08 - 84k tokens]
+
+- **Dupla validação:** o proxy.ts faz a proteção preliminar, enquanto /admin verifica novamente a sessão no servidor.
+
+- **Sessão inválida:** cookies adulterados ou expirados não concedem acesso.
+
+- **Open redirect:** o agente testou e descartou redirecionamentos externos.
+
+- **Logout:** a sessão é encerrada e o acesso posterior à área administrativa é bloqueado.
+
+- **Testes:** 40 testes passando, com cobertura distribuída entre sessão, rotas, proxy e página administrativa.
+
+- **Build:** concluído com o matcher /admin/:path* confirmado no manifest.
 
 Até agora:
 
