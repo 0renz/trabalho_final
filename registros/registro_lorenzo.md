@@ -27,11 +27,17 @@
 - **O que só entendi depois (preencher na Semana 3, se aplicável):** [...]
 ```
 
----
 
 ## Semana 1 — Setup inicial
 
-```markdown
+## Etapa [1] — [Estruturação do repositório e definição de arquitetura]
+
+**Data:** 23/11/2026
+**Hora inicial:** 15:01
+**Hora final:** 15:22 (6 min modelo + 15 min revisão)
+
+**Harness / Modelo / Versão:** [OpenCode v1.18.15 / Modelo DeepSeek V4.1 Flash max]
+
 ## 1. Situação atual do repositório
 O agente identificou que o repositório está organizado adequadamente, mas ainda não possui implementação.
 Diretório/arquivo	Finalidade
@@ -101,16 +107,26 @@ RF12	Exibir contadores de inscritos e presentes	Should
 RF13	Pesquisar participantes	Should
 RF14	Corrigir nome de participante	Out
 RF15	Excluir ou arquivar evento	Out
-```
 
 ---
 
-## Semana 2 - Implementação da estrutura do projeto 
+## Semana 2 - Implementação da estrutura do projeto
 
-```markdown
+**Data:** 23/11/2026
+**Hora inicial:** 15:15
+**Hora final:** 15:37 (11 min modelo + 11 min revisão)
 
-```
+**Harness / Modelo / Versão:** [OpenCode v1.18.15 / Modelo DeepSeek V4.1 Flash max]
 
----
+## Etapa [2] — [Implementação da fundação técnica]
 
-## Semana 1 — Setup inicial
+### Registro — Primeira etapa da implementação
+Nesta etapa, o OpenCode foi responsável pela criação da fundação técnica da aplicação, utilizando Next.js, TypeScript, Drizzle ORM e libSQL.
+
+Foram implementados o schema inicial do banco de dados, a migration, um seed com dados explicitamente fictícios e um endpoint de health check que realiza uma consulta real ao banco.
+
+Durante a implementação, surgiram problemas relacionados à compatibilidade de dependências e à configuração ESM do Vitest. O agente identificou e corrigiu essas questões, além de optar pela remoção de recursos de cache do scaffold para reduzir a complexidade da aplicação.
+
+Apesar da validação local bem-sucedida, o deploy permaneceu pendente devido à ausência de autenticação e credenciais dos provedores de hospedagem.
+
+Até o encerramento desta etapa, nenhuma funcionalidade central do produto havia sido implementada. Portanto, o resultado representa a preparação da infraestrutura necessária para o desenvolvimento do MVP, e não a entrega de uma versão funcional do sistema de gerenciamento de eventos.
