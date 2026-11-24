@@ -114,11 +114,12 @@ RF15	Excluir ou arquivar evento	Out
 
 **Data:** 23/11/2026
 **Hora inicial:** 15:15
-**Hora final:** 15:37 (11 min modelo + 11 min revisão)
 
 **Harness / Modelo / Versão:** [OpenCode v1.18.15 / Modelo DeepSeek V4.1 Flash max / até agora 150k tokens]
 
 ## Etapa [2] — [Implementação da fundação técnica do MVP]
+
+[23/11/2026 15:37]
 
 Nesta etapa, o OpenCode foi responsável pela criação da fundação técnica da aplicação, utilizando Next.js, TypeScript, Drizzle ORM e libSQL.
 
@@ -130,7 +131,7 @@ Apesar da validação local bem-sucedida, o deploy permaneceu pendente devido à
 
 Até o encerramento desta etapa, nenhuma funcionalidade central do produto havia sido implementada. Portanto, o resultado representa a preparação da infraestrutura necessária para o desenvolvimento do MVP, e não a entrega de uma versão funcional do sistema de gerenciamento de eventos.
 
-24/11/2026 ~8:30
+[24/11/2026 ~8:30]
 
 **PROCEDIMENTO MANUAL** - Como o deploy não pôde ser realizado, o agente recomendou que a equipe execute manualmente os seguintes passos para validar a fundação técnica:
 1. autenticação de credenciais no Vercel e Turso;
@@ -138,7 +139,7 @@ Até o encerramento desta etapa, nenhuma funcionalidade central do produto havia
 3. criação de um banco de dados no Turso e configuração do acesso remoto;
 4. configuração das variáveis de ambiente na Vercel e em `.env.local`, sem gravar credenciais reais no `.env.example`.
 
-24/11/2026 9:32
+[24/11/2026 9:32]
 
 **ATUALIZAÇÃO - PROCEDIMENTO MANUAL**: Após a execução dos passos acima, o deploy foi realizado com sucesso. No entanto, o agente detectou que as configurações de Build (Next.js) e Root Directory (`app/`) não estavam sendo salvas corretamente na Vercel.
 
@@ -158,4 +159,18 @@ Agora, o agente deve prosseguir com a validação do ambiente de produção:
 5. Validar a persistência dos dados após um novo deployment.
 
 Objetivo atual: apresentar os resultados de cada teste e, caso tudo esteja funcionando, considerar concluída a etapa de infraestrutura e apresente o planejamento da próxima funcionalidade do MVP.
+
+### Encerramento da etapa de infraestrutura
+[24/11/2026 9:55]
+
+A fundação da aplicação foi concluída e validada em ambiente de produção. A aplicação foi publicada na Vercel, conectada ao banco remoto Turso e teve sua migration inicial aplicada com sucesso.
+
+Durante a publicação, ocorreu um problema de configuração na Vercel: as opções de framework e diretório raiz não haviam sido salvas corretamente. Como consequência, a aplicação retornava erros 404. O problema foi identificado a partir do relatório do agente e corrigido manualmente, mediante ajuste das configurações e realização de um novo deployment.
+
+Após a correção, foram validados o acesso à página inicial, o endpoint de health check, a conexão com o banco remoto e a persistência de um registro após um novo deployment.
+
+A infraestrutura foi considerada concluída, mas o produto ainda não possuía funcionalidades de negócio. A próxima etapa será a implementação da autenticação administrativa, necessária para proteger as operações de gerenciamento de eventos.
+
+## Etapa [3] — [Implementação da autenticação administrativa]
+
 
