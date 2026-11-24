@@ -116,11 +116,10 @@ RF15	Excluir ou arquivar evento	Out
 **Hora inicial:** 15:15
 **Hora final:** 15:37 (11 min modelo + 11 min revisão)
 
-**Harness / Modelo / Versão:** [OpenCode v1.18.15 / Modelo DeepSeek V4.1 Flash max]
+**Harness / Modelo / Versão:** [OpenCode v1.18.15 / Modelo DeepSeek V4.1 Flash max / até agora 150k tokens]
 
-## Etapa [2] — [Implementação da fundação técnica]
+## Etapa [2] — [Implementação da fundação técnica do MVP]
 
-### Registro — Primeira etapa da implementação
 Nesta etapa, o OpenCode foi responsável pela criação da fundação técnica da aplicação, utilizando Next.js, TypeScript, Drizzle ORM e libSQL.
 
 Foram implementados o schema inicial do banco de dados, a migration, um seed com dados explicitamente fictícios e um endpoint de health check que realiza uma consulta real ao banco.
@@ -130,3 +129,33 @@ Durante a implementação, surgiram problemas relacionados à compatibilidade de
 Apesar da validação local bem-sucedida, o deploy permaneceu pendente devido à ausência de autenticação e credenciais dos provedores de hospedagem.
 
 Até o encerramento desta etapa, nenhuma funcionalidade central do produto havia sido implementada. Portanto, o resultado representa a preparação da infraestrutura necessária para o desenvolvimento do MVP, e não a entrega de uma versão funcional do sistema de gerenciamento de eventos.
+
+24/11/2026 ~8:30
+
+**PROCEDIMENTO MANUAL** - Como o deploy não pôde ser realizado, o agente recomendou que a equipe execute manualmente os seguintes passos para validar a fundação técnica:
+1. autenticação de credenciais no Vercel e Turso;
+2. criação de um projeto no Vercel e configuração do domínio;
+3. criação de um banco de dados no Turso e configuração do acesso remoto;
+4. configuração das variáveis de ambiente na Vercel e em `.env.local`, sem gravar credenciais reais no `.env.example`.
+
+24/11/2026 9:32
+
+**ATUALIZAÇÃO - PROCEDIMENTO MANUAL**: Após a execução dos passos acima, o deploy foi realizado com sucesso. No entanto, o agente detectou que as configurações de Build (Next.js) e Root Directory (`app/`) não estavam sendo salvas corretamente na Vercel.
+
+- Problema: configurações de build e diretório raiz não estavam salvas.
+- Causa identificada: configuração incorreta na Vercel.
+- Intervenção: ajuste manual das configurações.
+- Resultado: novo deployment para validação.
+
+Corrigi ambas as configurações e realizei um novo deployment.
+
+Agora, o agente deve prosseguir com a validação do ambiente de produção:
+
+1. Testar a rota `/`.
+2. Testar `/api/health`.
+3. Confirmar a conexão com o banco remoto Turso.
+4. Verificar se as migrations estão aplicadas.
+5. Validar a persistência dos dados após um novo deployment.
+
+Objetivo atual: apresentar os resultados de cada teste e, caso tudo esteja funcionando, considerar concluída a etapa de infraestrutura e apresente o planejamento da próxima funcionalidade do MVP.
+
