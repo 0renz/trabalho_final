@@ -214,4 +214,22 @@ Cobertura adicionada: configuração do cookie, Secure em produção, segredo au
  | `npm run lint` | Passou |
  | `npm run build` | Passou; rotas `/login`, `/api/auth/login` e `/api/auth/logout` geradas como dinâmicas |
 
+## Etapa [5] — [Implementação do CRUD de eventos]
+
+[24/11/2026 11:08 - 84k tokens]
+
+Até agora:
+
+O agente implementou autenticação em três etapas incrementais.
+- A primeira etapa foi a implementação da biblioteca de sessão.
+- A segunda etapa foi a implementação das rotas de login e logout.
+- A terceira etapa foi a implementação do CRUD de eventos.
+
+Foram necessários testes específicos para detectar adulteração de cookies e comportamento de expiração.
+
+Houve validação manual além dos testes automatizados.
+
+Você manteve o controle humano sobre a aprovação de cada etapa.
+A implementação ainda não foi publicada em produção.
+
 

@@ -1,5 +1,5 @@
-import type { CookieStore } from "iron-session";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ArmazemCookiesFake } from "./helpers/cookie-store";
 import {
   ConfiguracaoAutenticacaoError,
   DURACAO_SESSAO_SEGUNDOS,
@@ -14,39 +14,6 @@ import {
   iniciarSessaoAdmin,
   obterSessaoAdmin,
 } from "../src/lib/session";
-
-class ArmazemCookiesFake implements CookieStore {
-  private readonly valores = new Map<string, string>();
-  public readonly opcoes = new Map<
-    string,
-    Parameters<CookieStore["set"]>[2]
-  >();
-
-  get(nome: string) {
-    const valor = this.valores.get(nome);
-    return valor === undefined ? undefined : { name: nome, value: valor };
-  }
-
-  set(
-    nome: string,
-    valor: string,
-    cookie: Parameters<CookieStore["set"]>[2],
-  ) {
-    this.opcoes.set(nome, cookie);
-
-    if (cookie.maxAge === 0) {
-      this.valores.delete(nome);
-    } else {
-      this.valores.set(nome, valor);
-    }
-
-    return this;
-  }
-
-  definir(nome: string, valor: string) {
-    this.valores.set(nome, valor);
-  }
-}
 
 const SEGREDO_TESTE = "segredo-de-teste-com-mais-de-32-caracteres";
 const SENHA_TESTE = "senha-de-teste";

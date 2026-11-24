@@ -1,6 +1,8 @@
 import { createHash, timingSafeEqual } from "node:crypto";
+import type { NextRequest, NextResponse } from "next/server";
 import {
   getIronSession,
+  nextProxyCookies,
   type CookieStore,
   type IronSession,
   type SessionOptions,
@@ -90,6 +92,16 @@ export async function obterSessaoAdmin(
 ): Promise<IronSession<DadosSessaoAdmin>> {
   return getIronSession<DadosSessaoAdmin>(
     armazemCookies,
+    criarOpcoesSessao(),
+  );
+}
+
+export async function obterSessaoAdminDoProxy(
+  request: NextRequest,
+  response: NextResponse,
+): Promise<IronSession<DadosSessaoAdmin>> {
+  return getIronSession<DadosSessaoAdmin>(
+    nextProxyCookies(request, response),
     criarOpcoesSessao(),
   );
 }
