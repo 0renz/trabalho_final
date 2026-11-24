@@ -33,14 +33,14 @@ afterAll(() => {
   rmSync(diretorio, { recursive: true, force: true });
 });
 
-async function criarEvento(nome = "Semana de Teste") {
+async function criarEvento(nome = "Semana de Teste", cargaHoraria = 20) {
   const [evento] = await banco.db
     .insert(schema.eventos)
     .values({
       nome,
       dataInicio: "2026-11-23",
       dataFim: "2026-11-27",
-      cargaHoraria: 20,
+      cargaHoraria,
       publicado: true,
     })
     .returning();
@@ -85,6 +85,27 @@ describe("schema do banco", () => {
         nome: "Bruno Lima",
         email: "BRUNO@EXAMPLE.COM",
         codigoCertificado: "codigo-bruno-2",
+      }),
+    ).rejects.toThrow();
+  });
+
+  it("impede código de certificado duplicado entre eventos", async () => {
+    const primeiroEvento = await criarEvento("Evento A");
+    const segundoEvento = await criarEvento("Evento B");
+
+    await banco.db.insert(schema.inscricoes).values({
+      eventoId: primeiroEvento.id,
+      nome: "Elisa Rocha",
+      email: "elisa@example.com",
+      codigoCertificado: "codigo-repetido",
+    });
+
+    await expect(
+      banco.db.insert(schema.inscricoes).values({
+        eventoId: segundoEvento.id,
+        nome: "Fábio Nunes",
+        email: "fabio@example.com",
+        codigoCertificado: "codigo-repetido",
       }),
     ).rejects.toThrow();
   });
@@ -145,15 +166,45 @@ describe("schema do banco", () => {
 
     expect(atualizada?.presente).toBe(true);
     expect(atualizada?.presenteEm).not.toBeNull();
+
+    await expect(
+      banco.db
+        .update(schema.inscricoes)
+        .set({ presente: false, presenteEm: new Date().toISOString() })
+        .where(eq(schema.inscricoes.id, inscricao.id)),
+    ).rejects.toThrow();
+
+    await banco.db
+      .update(schema.inscricoes)
+      .set({ presente: false, presenteEm: null })
+      .where(eq(schema.inscricoes.id, inscricao.id));
+
+    const [desmarcada] = await banco.db
+      .select()
+      .from(schema.inscricoes)
+      .where(eq(schema.inscricoes.id, inscricao.id));
+
+    expect(desmarcada?.presente).toBe(false);
+    expect(desmarcada?.presenteEm).toBeNull();
+  });
+
+  it("aceita carga horária nos limites permitidos", async () => {
+    const eventoMinimo = await criarEvento("Evento de 1 hora", 1);
+    const eventoMaximo = await criarEvento("Evento de 200 horas", 200);
+
+    expect(eventoMinimo.cargaHoraria).toBe(1);
+    expect(eventoMaximo.cargaHoraria).toBe(200);
   });
 
   it("rejeita carga horária inválida", async () => {
-    await expect(
-      banco.db.insert(schema.eventos).values({
-        nome: "Evento inválido",
-        dataInicio: "2026-11-23",
-        cargaHoraria: 0,
-      }),
-    ).rejects.toThrow();
+    for (const cargaHoraria of [0, 201]) {
+      await expect(
+        banco.db.insert(schema.eventos).values({
+          nome: `Evento inválido (${cargaHoraria}h)`,
+          dataInicio: "2026-11-23",
+          cargaHoraria,
+        }),
+      ).rejects.toThrow();
+    }
   });
 });
