@@ -193,4 +193,25 @@ A infraestrutura foi considerada concluída, mas o produto ainda não possuía f
 
 Cobertura adicionada: configuração do cookie, Secure em produção, segredo ausente/curto, senha ausente, comparação segura com tamanhos diferentes, round-trip da sessão, destroy(), cookie adulterado, cookie expirado e marca de autenticação gravada no cookie.
 
+## Etapa [4] — [Implementação do CRUD de eventos]
+
+[24/11/2026 10:42 - 160k tokens]
+
+| Arquivo | Alteração |
+| --- | --- |
+| `app/src/app/api/auth/login/route.ts` | Novo POST de login |
+| `app/src/app/api/auth/logout/route.ts` | Novo POST de logout |
+| `app/src/app/login/page.tsx` | Nova página de login responsiva em português |
+| `app/tests/auth-routes.test.ts` | 7 testes das rotas de login/logout |
+| `app/vitest.config.mts` | Alias `@` para permitir testar os Route Handlers |
+
+### Testes executados
+
+ | Verificação | Resultado |
+ | --- | --- |
+ | `npm test` | 27 testes passando (13 de sessão + 7 de rotas + 7 de banco) |
+ | `npm run typecheck` | Passou |
+ | `npm run lint` | Passou |
+ | `npm run build` | Passou; rotas `/login`, `/api/auth/login` e `/api/auth/logout` geradas como dinâmicas |
+
 
