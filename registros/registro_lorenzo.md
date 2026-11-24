@@ -172,5 +172,25 @@ Após a correção, foram validados o acesso à página inicial, o endpoint de h
 A infraestrutura foi considerada concluída, mas o produto ainda não possuía funcionalidades de negócio. A próxima etapa será a implementação da autenticação administrativa, necessária para proteger as operações de gerenciamento de eventos.
 
 ## Etapa [3] — [Implementação da autenticação administrativa]
+[24/11/2026 10:28 - 127k tokens]
+
+### Arquivos modificados
+
+| Arquivo | Alteração |
+| --- | --- |
+| `app/package.json` | `iron-session@^9.1.1` e `engines.node >=22.13.0` |
+| `app/package-lock.json` | Lockfile atualizado |
+| `app/src/lib/session.ts` | Novo módulo de sessão administrativa |
+| `app/tests/auth.test.ts` | 13 testes unitários de autenticação |
+
+### Testes executados
+
+| Comando | Resultado |
+| --- | --- |
+| `npm test` | 20 testes passando (13 de autenticação + 7 de banco) |
+| `npm run typecheck` | Passou |
+| `npm run lint` | Passou |
+
+Cobertura adicionada: configuração do cookie, Secure em produção, segredo ausente/curto, senha ausente, comparação segura com tamanhos diferentes, round-trip da sessão, destroy(), cookie adulterado, cookie expirado e marca de autenticação gravada no cookie.
 
 
