@@ -1,0 +1,43 @@
+
+name: Sync Vercel Repository
+
+on:
+  push:
+    branches:
+      - lorenzo
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-vercel-repository
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync lorenzo to Vercel main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout original repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Push commits to Vercel repository
+        env:
+          CLONE_TOKEN: ${{ secrets.VERCEL_CLONE_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$CLONE_TOKEN" ]; then
+            echo "VERCEL_CLONE_TOKEN is not configured."
+            exit 1
+          fi
+
+          git push \
+            "https://x-access-token:${CLONE_TOKEN}@github.com/0renz/trabalho_final.git" \
+            HEAD:refs/heads/main
