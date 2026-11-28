@@ -237,11 +237,38 @@ O agente implementou autenticação em três etapas incrementais.
 - A segunda etapa foi a implementação das rotas de login e logout.
 - A terceira etapa foi a implementação do CRUD de eventos.
 
-Foram necessários testes específicos para detectar adulteração de cookies e comportamento de expiração.
+Foram necessários testes específicos para detectar adulteração de cookies e comportamento de expiração. Houve validação manual além dos testes automatizados.
 
-Houve validação manual além dos testes automatizados.
+### Registro individual — Sincronização entre GitHub e Vercel
 
-Você manteve o controle humano sobre a aprovação de cada etapa.
-A implementação ainda não foi publicada em produção.
+**Período:** 24–25/11/2026  
+**Atividade:** Configuração da integração entre repositórios GitHub e deploy automático na Vercel.
 
+Durante a configuração do deploy, identifiquei um problema relacionado à origem do código utilizado pela Vercel. O repositório conectado à plataforma era um clone privado criado durante a importação do projeto, pertencente à minha conta pessoal. Esse clone possuía uma branch `main` com um histórico diferente da branch `lorenzo`, utilizada no repositório original do grupo. Consequentemente, os commits enviados para o repositório original não eram refletidos automaticamente no projeto publicado.
+
+**Intervenções manuais e resolução**
+
+Inicialmente, precisei verificar os repositórios e seus históricos para entender a divergência. Adicionei o clone como um segundo remoto Git e tentei enviar a branch `lorenzo` diretamente para a `main`. A operação foi rejeitada pelo Git por causa de uma divergência de histórico (*non-fast-forward*).
+
+Após identificar que o clone continha apenas uma versão desatualizada do projeto, decidi substituir seu histórico pelo da branch `lorenzo`. Para isso, utilizei `git push --force-with-lease`, preservando a branch original e atualizando a `main` do clone.
+
+Mesmo após essa sincronização, um redeploy na Vercel continuou utilizando inicialmente o commit antigo. Foi necessário investigar manualmente a configuração da integração. Verifiquei os hashes dos commits, confirmei que o código atualizado estava presente no GitHub e revisei as configurações do projeto na Vercel, incluindo o repositório conectado e a branch de produção. Depois, criei um novo deployment baseado diretamente na branch `main`. Essa implantação utilizou o commit correto e concluiu o build com sucesso.
+
+**Automação e novo problema encontrado**
+
+Com a publicação funcionando, configurei um workflow do GitHub Actions para automatizar a transferência dos commits da branch `lorenzo` para a `main` do clone. A primeira execução falhou porque o token de acesso pessoal utilizado pela automação não possuía permissão para criar ou atualizar arquivos de workflows no repositório de destino.
+
+O log da execução indicou explicitamente a ausência do escopo `workflow`. Analisei a mensagem de erro, identifiquei a permissão necessária e atualizei o token, adicionando a permissão `Workflows: Read and write`, além da permissão de escrita em conteúdo já configurada. Também atualizei o secret `VERCEL_CLONE_TOKEN` no repositório original e executei novamente o workflow.
+
+Na nova execução, a sincronização foi concluída. Comparei os hashes de `origin/lorenzo` e `vercel-clone/main` e confirmei que eram idênticos. A partir desse momento, os commits enviados para a branch `lorenzo` passaram a ser replicados automaticamente na `main` do clone, acionando os deployments de produção da Vercel.
+
+**Observações sobre a participação humana**
+
+Embora a automação tenha sido implementada com auxílio do agente, a resolução exigiu intervenções manuais em diferentes etapas: configuração dos remotos, análise do histórico Git, decisão de substituir a branch do clone, revisão das configurações de deploy, criação e ajuste de credenciais e interpretação dos logs de falha.
+
+O episódio demonstrou que a geração de um workflow funcional não garante, por si só, que a integração esteja operacional. Foi necessário compreender as relações entre os repositórios, o comportamento dos deployments e o modelo de permissões do GitHub para identificar e corrigir os problemas.
+
+**Resultado:** sincronização automática entre `lorenzo` e `main` funcionando, com hashes idênticos e integração com os deployments de produção da Vercel.
+
+**Dados não registrados:** duração total da atividade e custo associado ao uso do agente não foram mensurados.
 
